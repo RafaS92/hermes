@@ -5,9 +5,11 @@ import Chat from "./components/Chat";
 
 function App() {
   return (
-    <div>
-      <Sidebar />
-      <Chat />
+    <div className="app">
+      <div className="app_body">
+        <Sidebar />
+        <Chat />
+      </div>
     </div>
   );
 }
