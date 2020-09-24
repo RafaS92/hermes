@@ -22,3 +22,35 @@
 .chat_headerInfo > p {
   color: gray;
 }
+
+.chat_body {
+  flex: 1;
+  background-color: mediumaquamarine;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 30px;
+  overflow: scroll;
+}
+
+.chat_message {
+  position: relative;
+  font-size: 16px;
+  padding: 10px;
+  width: fit-content;
+  border-radius: 10px;
+  background-color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.chat_timestamp {
+  margin-left: 10px;
+  font-size: xx-small;
+}
+
+.chat_name {
+  position: absolute;
+  top: -15px;
+  font-weight: 800;
+  font-size: xx-small;
+}
