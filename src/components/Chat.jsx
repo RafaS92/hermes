@@ -4,7 +4,7 @@ import "./Chat.css";
 function Chat() {
   return (
     <div className="chat">
-      <h1>Perro</h1>
+      <h1>melo</h1>
     </div>
   );
 }
