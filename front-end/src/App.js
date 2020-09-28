@@ -21,9 +21,14 @@ function App() {
 
     const channel = pusher.subscribe("messages");
     channel.bind("inserted", (data) => {
-      alert(JSON.stringify(data));
+      setMessages([...messages, data]);
     });
-  }, []);
+
+    return () => {
+      channel.unbind_all();
+      channel.unsubscribe();
+    };
+  }, [messages]);
 
   console.log(messages);
 
