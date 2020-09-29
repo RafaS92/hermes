@@ -12,7 +12,7 @@ function Sidebar({ id, name }) {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    db.collection("rooms").onSnapshot((snapshot) =>
+    const unsusbscribe = db.collection("rooms").onSnapshot((snapshot) =>
       setRooms(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -20,6 +20,9 @@ function Sidebar({ id, name }) {
         }))
       )
     );
+    return () => {
+      unsusbscribe();
+    };
   }, []);
 
   console.log(rooms);
