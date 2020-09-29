@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Chat.css";
 import { Avatar, IconButton } from "@material-ui/core";
 import InsertEmoticon from "@material-ui/icons/InsertEmoticon";
 import MicIcon from "@material-ui/icons/Mic";
 import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
 import axios from "../axios";
+import { useParams } from "react-router-dom";
+import db from "../firebase";
 
 function Chat({ messages }) {
   const [input, setInput] = useState("");
+  const { roomId } = useParams();
+  const [roomName, setRoomName] = useState("");
+
+  useEffect(() => {
+    if (roomId) {
+      db.collection("rooms")
+        .doc(roomId)
+        .onSnapshot((snapshot) => setRoomName(snapshot.data().name));
+    }
+  }, [roomId]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -27,7 +39,7 @@ function Chat({ messages }) {
         <Avatar />
 
         <div className="chat_headerInfo">
-          <h3>Room Name</h3>
+          <h3>{roomName}</h3>
           <p>Last seen..</p>
         </div>
 
