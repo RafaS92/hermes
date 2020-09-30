@@ -5,8 +5,10 @@ import Chat from "./components/Chat";
 import Pusher from "pusher-js";
 import axios from "./axios";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Login from "./components/Login";
 
 function App() {
+  const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -33,20 +35,24 @@ function App() {
 
   return (
     <div className="app">
-      <div className="app_body">
-        <Router>
-          <Sidebar />
-          <Switch>
-            <Route path="/rooms/:roomId">
-              <Chat messages={messages} />
-            </Route>
+      {!user ? (
+        <Login />
+      ) : (
+        <div className="app_body">
+          <Router>
+            <Sidebar />
+            <Switch>
+              <Route path="/rooms/:roomId">
+                <Chat messages={messages} />
+              </Route>
 
-            <Route path="/">
-              <Chat messages={messages} />
-            </Route>
-          </Switch>
-        </Router>
-      </div>
+              <Route path="/">
+                <Chat messages={messages} />
+              </Route>
+            </Switch>
+          </Router>
+        </div>
+      )}
     </div>
   );
 }
