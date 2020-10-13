@@ -46,9 +46,12 @@ function App() {
               <Route path="/rooms/:roomId">
                 <Chat messages={messages} />
               </Route>
-
               <Route path="/">
                 <Chat messages={messages} />
+              </Route>
+
+              <Route path="/login">
+                <Login />
               </Route>
             </Switch>
           </Router>

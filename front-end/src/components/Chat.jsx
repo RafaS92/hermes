@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Chat.css";
 import { Avatar } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import axios from "../axios";
 import { useParams } from "react-router-dom";
-import db from "../firebase";
+import db, { auth } from "../firebase";
 import { useStateValue } from "../StateProvider";
 import firebase from "firebase";
+import { useHistory } from "react-router-dom";
 
 function Chat() {
   const [input, setInput] = useState("");
@@ -13,6 +15,10 @@ function Chat() {
   const [roomName, setRoomName] = useState("");
   const [messages, setMessages] = useState([]);
   const [{ user }, dispatch] = useStateValue();
+
+  console.log(user);
+
+  let history = useHistory();
 
   useEffect(() => {
     if (roomId) {
@@ -57,7 +63,23 @@ function Chat() {
           </p>
         </div>
 
-        <div className="headerRight"></div>
+        <div className="headerRight">
+          <a
+            variant="outlined"
+            className="auth_buttons"
+            color="default"
+            href="/login"
+          >
+            <Button
+              variant="outlined"
+              className="auth_buttons"
+              color="default"
+              onClick={() => auth.signOut()}
+            >
+              Log out
+            </Button>
+          </a>
+        </div>
       </div>
 
       <div className="chat_body">
