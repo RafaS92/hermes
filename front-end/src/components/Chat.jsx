@@ -51,8 +51,6 @@ function Chat() {
   return (
     <div className="chat">
       <div className="chat_header">
-        <Avatar />
-
         <div className="chat_headerInfo">
           <h3>{roomName}</h3>
           <p>
@@ -66,14 +64,13 @@ function Chat() {
         <div className="headerRight">
           <a
             variant="outlined"
-            className="auth_buttons"
+            className="auth_button"
             color="default"
             href="/login"
           >
             <Button
               variant="outlined"
-              className="auth_buttons"
-              color="default"
+              color="secondary"
               onClick={() => auth.signOut()}
             >
               Log out
