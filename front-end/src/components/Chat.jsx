@@ -7,11 +7,13 @@ import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
 import axios from "../axios";
 import { useParams } from "react-router-dom";
 import db from "../firebase";
+import { useStateValue } from "../StateProvider";
 
 function Chat({ messages }) {
   const [input, setInput] = useState("");
   const { roomId } = useParams();
   const [roomName, setRoomName] = useState("");
+  const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
     if (roomId) {
@@ -26,13 +28,15 @@ function Chat({ messages }) {
 
     await axios.post("/messages/new", {
       message: input,
-      name: "another1",
-      timestamp: "ioy00",
-      received: true,
+      name: user.displayName,
+      timestamp: new Date(),
+      received: false,
     });
 
     setInput("");
   };
+
+  console.log(new Date().toUTCString);
   return (
     <div className="chat">
       <div className="chat_header">
@@ -60,7 +64,9 @@ function Chat({ messages }) {
         {messages.map((message, id) => (
           <p
             key={id}
-            className={`chat_message ${message.received && "chat_reciever"}`}
+            className={`chat_message ${
+              message.name === user.displayName && "chat_reciever"
+            }`}
           >
             <span className="chat_name">{message.name}</span>
             {message.message}
