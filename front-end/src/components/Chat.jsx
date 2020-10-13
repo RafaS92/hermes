@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./Chat.css";
-import { Avatar, IconButton } from "@material-ui/core";
-import InsertEmoticon from "@material-ui/icons/InsertEmoticon";
-import MicIcon from "@material-ui/icons/Mic";
-import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
+import { Avatar } from "@material-ui/core";
 import axios from "../axios";
 import { useParams } from "react-router-dom";
 import db from "../firebase";
 import { useStateValue } from "../StateProvider";
+import firebase from "firebase";
 
-function Chat({ messages }) {
+function Chat() {
   const [input, setInput] = useState("");
   const { roomId } = useParams();
   const [roomName, setRoomName] = useState("");
+  const [messages, setMessages] = useState([]);
   const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
@@ -20,23 +19,29 @@ function Chat({ messages }) {
       db.collection("rooms")
         .doc(roomId)
         .onSnapshot((snapshot) => setRoomName(snapshot.data().name));
+
+      db.collection("rooms")
+        .doc(roomId)
+        .collection("messages")
+        .orderBy("timestamp", "asc")
+        .onSnapshot((snapshot) =>
+          setMessages(snapshot.docs.map((doc) => doc.data()))
+        );
     }
   }, [roomId]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    await axios.post("/messages/new", {
+    db.collection("rooms").doc(roomId).collection("messages").add({
       message: input,
       name: user.displayName,
-      timestamp: new Date(),
-      received: false,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
     setInput("");
   };
 
-  console.log(new Date().toUTCString);
   return (
     <div className="chat">
       <div className="chat_header">
@@ -44,20 +49,15 @@ function Chat({ messages }) {
 
         <div className="chat_headerInfo">
           <h3>{roomName}</h3>
-          <p>Last seen..</p>
+          <p>
+            Last seen{" "}
+            {new Date(
+              messages[messages.length - 1]?.timestamp?.toDate()
+            ).toUTCString()}
+          </p>
         </div>
 
-        <div className="headerRight">
-          <IconButton>
-            <SearchOutlined />
-          </IconButton>
-          <IconButton>
-            <AttachFile />
-          </IconButton>
-          <IconButton>
-            <MoreVert />
-          </IconButton>
-        </div>
+        <div className="headerRight"></div>
       </div>
 
       <div className="chat_body">
@@ -70,12 +70,13 @@ function Chat({ messages }) {
           >
             <span className="chat_name">{message.name}</span>
             {message.message}
-            <span className="chat_timestamp">{message.timestamp}</span>
+            <span className="chat_timestamp">
+              {new Date(message.timestamp?.toDate()).toUTCString()}
+            </span>
           </p>
         ))}
       </div>
       <div className="chat_footer">
-        <InsertEmoticon />
         <form action="">
           <input
             value={input}
@@ -87,7 +88,7 @@ function Chat({ messages }) {
             Send a message
           </button>
         </form>
-        <MicIcon />
+        <button>Send</button>
       </div>
     </div>
   );
