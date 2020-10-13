@@ -27,23 +27,14 @@ function Sidebar({ id, name }) {
     };
   }, []);
 
-  console.log(rooms);
   return (
     <div className="sideBar">
       <div className="sidebar_header">
-        {/* <Avatar src="https://miro.medium.com/fit/c/336/336/1*pybhnKNls5s3RSubfSJ3Hg.jpeg" /> */}
         <Avatar src={user?.photoURL} />
-        <div className="sidebar_headerRight">
-          <IconButton>
-            <DonutLargeIcon />
-          </IconButton>
-          <IconButton>
-            <ChatIcon />
-          </IconButton>
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
-        </div>
+
+        <IconButton>
+          <ChatIcon />
+        </IconButton>
       </div>
 
       <div className="sidebar_search">

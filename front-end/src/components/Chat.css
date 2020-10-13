@@ -23,6 +23,15 @@
   color: gray;
 }
 
+a {
+  text-transform: inherit !important;
+}
+
+.auth_buttons {
+  background-color: rgb(167, 33, 33);
+  text-transform: inherit !important;
+}
+
 .chat_body {
   flex: 1;
   background-color: mediumaquamarine;
