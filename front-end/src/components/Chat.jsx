@@ -17,8 +17,6 @@ function Chat() {
   const [messages, setMessages] = useState([]);
   const [{ user }, dispatch] = useStateValue();
 
-  let history = useHistory();
-
   useEffect(() => {
     if (roomId) {
       db.collection("rooms")
@@ -87,6 +85,7 @@ function Chat() {
             }`}
           >
             <p className="chat_name">{message.name}</p>
+
             {message.message}
             <span className="chat_timestamp">
               {new Date(message.timestamp?.toDate()).toLocaleTimeString()}
