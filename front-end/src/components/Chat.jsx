@@ -8,6 +8,7 @@ import db, { auth } from "../firebase";
 import { useStateValue } from "../StateProvider";
 import firebase from "firebase";
 import { useHistory } from "react-router-dom";
+import TelegramIcon from "@material-ui/icons/Telegram";
 
 function Chat() {
   const [input, setInput] = useState("");
@@ -57,7 +58,7 @@ function Chat() {
             Last seen{" "}
             {new Date(
               messages[messages.length - 1]?.timestamp?.toDate()
-            ).toUTCString()}
+            ).toLocaleTimeString()}
           </p>
         </div>
 
@@ -87,10 +88,10 @@ function Chat() {
               message.name === user.displayName && "chat_reciever"
             }`}
           >
-            <span className="chat_name">{message.name}</span>
+            <p className="chat_name">{message.name}</p>
             {message.message}
             <span className="chat_timestamp">
-              {new Date(message.timestamp?.toDate()).toUTCString()}
+              {new Date(message.timestamp?.toDate()).toLocaleTimeString()}
             </span>
           </p>
         ))}
@@ -103,11 +104,18 @@ function Chat() {
             placeholder="Type a message"
             type="text"
           />
-          <button onClick={sendMessage} type="submit">
-            Send a message
-          </button>
+          <div className="send-icon">
+            <TelegramIcon
+              color="primary"
+              fontSize="medium"
+              onClick={sendMessage}
+              type="submit"
+            >
+              add_circle
+            </TelegramIcon>
+          </div>
+          <button onClick={sendMessage} type="submit"></button>
         </form>
-        <button>Send</button>
       </div>
     </div>
   );
