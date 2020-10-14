@@ -1,17 +1,43 @@
 .login {
-  background-color: #e2e1e1;
-  height: 100vh;
+  display: flex;
+  background-image: url("https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-size: cover;
+  height: 100%;
   width: 100vw;
   display: grid;
   place-items: center;
+  overflow-y: hidden;
+  color: aliceblue;
 }
 
 .login_container {
-  padding: 100px;
-  text-align: center;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px;
+  display: flex;
+  background-color: rgba(51, 50, 50, 0.466);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: justify;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: 150px;
+  padding: 40px;
+}
+
+.login_container > h1 {
+  display: flex;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 60px;
+  margin-bottom: 50px;
+}
+
+.login_container > p {
+  display: flex;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 19px;
+  font-weight: 600;
+  width: 450px;
 }
 
 .login_container > img {
@@ -22,7 +48,18 @@
 
 .login_container > button {
   margin-top: 50px;
+  height: 40px;
   text-transform: inherit !important;
-  background-color: #0a8d48;
+  background-color: #0eac7c;
   color: white;
+}
+
+@media (max-width: 608px) {
+  .login_container > p {
+    width: auto;
+  }
+  .login_container > h1 {
+    text-align: center;
+    width: auto;
+  }
 }

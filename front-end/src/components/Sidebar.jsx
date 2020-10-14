@@ -9,7 +9,7 @@ import { useStateValue } from "../StateProvider";
 
 function Sidebar({ id, name }) {
   const [rooms, setRooms] = useState([]);
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user }] = useStateValue();
   const [search, setSearch] = useState("");
 
   useEffect(() => {
