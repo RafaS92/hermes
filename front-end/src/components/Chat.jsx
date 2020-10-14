@@ -17,8 +17,6 @@ function Chat() {
   const [messages, setMessages] = useState([]);
   const [{ user }, dispatch] = useStateValue();
 
-  console.log(user);
-
   let history = useHistory();
 
   useEffect(() => {

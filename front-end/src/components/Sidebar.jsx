@@ -10,6 +10,7 @@ import { useStateValue } from "../StateProvider";
 function Sidebar({ id, name }) {
   const [rooms, setRooms] = useState([]);
   const [{ user }, dispatch] = useStateValue();
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const unsusbscribe = db.collection("rooms").onSnapshot((snapshot) =>
@@ -35,6 +36,12 @@ function Sidebar({ id, name }) {
     }
   };
 
+  const searchTerm = (e) => {
+    setSearch(e.target.value);
+  };
+
+  let filteredRooms = rooms.filter((room) => room.data.name.startsWith(search));
+
   return (
     <div className="sideBar">
       <div className="sidebar_header">
@@ -48,13 +55,17 @@ function Sidebar({ id, name }) {
       <div className="sidebar_search">
         <div className="sidebar_searchContainer">
           <SearchOutlined />
-          <input placeholder="Search a chat" type="text" />
+          <input
+            placeholder="Search a chat"
+            type="text"
+            onChange={(e) => searchTerm(e)}
+          />
         </div>
       </div>
 
       <div className="sidebar_chats">
         <SidebarChat addNewChat />
-        {rooms.map((room) => (
+        {filteredRooms.map((room) => (
           <SidebarChat key={room.id} id={room.id} name={room.data.name} />
         ))}
       </div>
