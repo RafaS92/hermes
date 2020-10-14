@@ -39,7 +39,7 @@ a {
   background-repeat: no-repeat;
   background-position: center;
   padding: 30px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .chat_message {
@@ -59,9 +59,11 @@ a {
 
 .chat_name {
   position: absolute;
+  left: -1px;
   top: -15px;
-  font-weight: 800;
+  font-weight: 600;
   font-size: xx-small;
+  width: max-content;
 }
 
 .chat_reciever {
@@ -72,7 +74,7 @@ a {
 .chat_footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 62px;
   border-top: 1px solid lightgray;
   background-color: rgb(189, 226, 218);
@@ -81,18 +83,32 @@ a {
 .chat_footer > form {
   flex: 1;
   display: flex;
+  margin-left: 10px;
 }
+
 .chat_footer > form > input {
-  flex: 1;
+  flex: 0.98;
   border-radius: 30px;
   outline-width: 0;
   padding: 10px;
   border: none;
   background-color: rgb(255, 255, 255);
 }
-
 .chat_footer > form > button {
   display: none;
+}
+
+.send-icon {
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-icon :hover {
+  flex: 1;
+  font-size: 2rem !important;
+  box-shadow: darkorchid !important;
 }
 
 .chat_footer > .MuiSvgIcon-root {
