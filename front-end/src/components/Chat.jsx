@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Chat.css";
-import { Avatar } from "@material-ui/core";
 import { Button } from "@material-ui/core";
-import axios from "../axios";
 import { useParams } from "react-router-dom";
 import db, { auth } from "../firebase";
 import { useStateValue } from "../StateProvider";
 import firebase from "firebase";
-import { useHistory } from "react-router-dom";
 import TelegramIcon from "@material-ui/icons/Telegram";
 
 function Chat() {
@@ -15,7 +12,7 @@ function Chat() {
   const { roomId } = useParams();
   const [roomName, setRoomName] = useState("");
   const [messages, setMessages] = useState([]);
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user }] = useStateValue();
 
   useEffect(() => {
     if (roomId) {

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   flex: 0.65;
+  position: relative;
 }
 
 .chat_header {
@@ -40,6 +41,8 @@ a {
   background-position: center;
   padding: 30px;
   overflow-y: scroll;
+  bottom: 0;
+  position: relative;
 }
 
 .chat_message {
@@ -60,7 +63,7 @@ a {
 .chat_name {
   position: relative;
   left: -1px;
-  top: -2git add 5px;
+  top: -25px;
   font-weight: 600;
   font-size: xx-small;
   width: max-content;
