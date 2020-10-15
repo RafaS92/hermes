@@ -3,6 +3,7 @@ import "./SidebarChat.css";
 import { Avatar } from "@material-ui/core";
 import db from "../firebase";
 import { Link } from "react-router-dom";
+
 function SidebarChat({ addNewChat, id, name }) {
   const [seed, setSeed] = useState("");
   const [messages, setMessages] = useState("");
@@ -23,16 +24,6 @@ function SidebarChat({ addNewChat, id, name }) {
     setSeed(Math.floor(Math.random() * 5000));
   }, []);
 
-  const createChat = () => {
-    const roomName = prompt("Please enter a name for chat");
-
-    if (roomName) {
-      db.collection("rooms").add({
-        name: roomName,
-      });
-    }
-  };
-
   return !addNewChat ? (
     <Link to={`/rooms/${id}`}>
       <div className="sidebarChat">
@@ -43,11 +34,7 @@ function SidebarChat({ addNewChat, id, name }) {
         </div>
       </div>
     </Link>
-  ) : (
-    <div onClick={createChat} className="sidebarChat">
-      <h2>Add New Chat</h2>
-    </div>
-  );
+  ) : null;
 }
 
 export default SidebarChat;
