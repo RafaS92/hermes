@@ -47,8 +47,8 @@ function Sidebar({ id, name }) {
       <div className="sidebar_header">
         <Avatar src={user?.photoURL} />
 
-        <IconButton>
-          <ChatIcon onClick={createChat} />
+        <IconButton onClick={createChat}>
+          <ChatIcon />
         </IconButton>
       </div>
 
