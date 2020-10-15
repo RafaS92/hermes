@@ -6,11 +6,13 @@ import { SearchOutlined } from "@material-ui/icons";
 import SidebarChat from "./SidebarChat";
 import db from "../firebase";
 import { useStateValue } from "../StateProvider";
+import Modal from "./Modal";
 
 function Sidebar({ id, name }) {
   const [rooms, setRooms] = useState([]);
   const [{ user }] = useStateValue();
   const [search, setSearch] = useState("");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const unsusbscribe = db.collection("rooms").onSnapshot((snapshot) =>
@@ -26,16 +28,6 @@ function Sidebar({ id, name }) {
     };
   }, []);
 
-  const createChat = () => {
-    const roomName = prompt("Please enter a name for chat");
-
-    if (roomName) {
-      db.collection("rooms").add({
-        name: roomName,
-      });
-    }
-  };
-
   const searchTerm = (e) => {
     setSearch(e.target.value);
   };
@@ -47,10 +39,12 @@ function Sidebar({ id, name }) {
       <div className="sidebar_header">
         <Avatar src={user?.photoURL} />
 
-        <IconButton onClick={createChat}>
+        <IconButton onClick={() => setOpen(!open)}>
           <ChatIcon />
         </IconButton>
       </div>
+
+      {open ? <Modal /> : null}
 
       <div className="sidebar_search">
         <div className="sidebar_searchContainer">
