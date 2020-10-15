@@ -75,7 +75,7 @@ function Chat() {
 
       <div className="chat_body">
         {messages.map((message, id) => (
-          <p
+          <div
             key={id}
             className={`chat_message ${
               message.name === user.displayName && "chat_reciever"
@@ -87,7 +87,7 @@ function Chat() {
             <span className="chat_timestamp">
               {new Date(message.timestamp?.toDate()).toLocaleTimeString()}
             </span>
-          </p>
+          </div>
         ))}
       </div>
       <div className="chat_footer">
@@ -99,12 +99,7 @@ function Chat() {
             type="text"
           />
           <div className="send-icon">
-            <TelegramIcon
-              color="primary"
-              fontSize="medium"
-              onClick={sendMessage}
-              type="submit"
-            >
+            <TelegramIcon color="primary" onClick={sendMessage} type="submit">
               add_circle
             </TelegramIcon>
           </div>
